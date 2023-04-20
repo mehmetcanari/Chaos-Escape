@@ -7,6 +7,7 @@ namespace Chaos.Escape
     [CreateAssetMenu(fileName = "Hoverboard Data", menuName = "Hoverboard Data", order = 0)]
     public class HoverboardControlData : ScriptableObject
     {
-        public int hoverboardSpeed;
+        public int hoverboardAccelerationValue;
+        public int hoverboardFinalVelocity;
     }
 }
