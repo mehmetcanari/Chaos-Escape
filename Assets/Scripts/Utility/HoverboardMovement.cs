@@ -34,7 +34,7 @@ namespace Chaos.Escape
         {
             if (!HasAnyMovementKeyPressed()) return;
             var hoverboardAccelerationValue = hoverboardControlData.hoverboardAccelerationValue;
-            DOTween.Complete(_velocityTween);
+            _velocityTween?.Kill();
             
             if (IsPressedHold(KeyCode.W))
                 targetPhysics.AddForce(Vector3.forward * (hoverboardAccelerationValue * Time.deltaTime),
