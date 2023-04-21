@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Chaos.Escape
 {
@@ -9,7 +10,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
-        [SerializeField] private Transform indicatorCore;
+        [SerializeField] private Transform indicator;
 
         #endregion
 
@@ -17,7 +18,7 @@ namespace Chaos.Escape
 
         private void Update()
         {
-            CoreIndicatorForceLook();
+            SetIndicatorPositionToHitPoint(GettedHitFromMousePosition(), 0.5f);
         }
 
         #endregion
@@ -32,14 +33,9 @@ namespace Chaos.Escape
             return hit;
         }
         
-        private void CoreIndicatorForceLook()
+        private void SetIndicatorPositionToHitPoint(RaycastHit hit, float offset)
         {
-            var hit = GettedHitFromMousePosition();
-            if (hit.collider == null) return;
-            
-            var hitPoint = hit.point;
-            hitPoint.y = indicatorCore.position.y;
-            indicatorCore.LookAt(hitPoint);
+            indicator.position = new Vector3(hit.point.x, hit.point.y + offset, hit.point.z);
         }
 
         #endregion

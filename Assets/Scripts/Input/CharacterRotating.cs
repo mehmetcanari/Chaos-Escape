@@ -16,17 +16,18 @@ namespace Chaos.Escape
 
         private void Update()
         {
-            ForceLookToIndicatorRotationY();
+            ForceLookToIndicatorPosition();
         }
 
         #endregion
         
         #region PRIVATE METHODS
 
-        private void ForceLookToIndicatorRotationY()
+        private void ForceLookToIndicatorPosition()
         {
-            var indicatorRotationY = indicatorCore.rotation.eulerAngles.y;
-            characterMesh.rotation = Quaternion.Euler(0, indicatorRotationY, 0);
+            var indicatorPosition = indicatorCore.position;
+            indicatorPosition.y = characterMesh.position.y;
+            characterMesh.LookAt(indicatorPosition);
         }
 
         #endregion

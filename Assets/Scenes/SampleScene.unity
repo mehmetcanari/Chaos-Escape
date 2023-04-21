@@ -154,6 +154,7 @@ Transform:
   m_Children:
   - {fileID: 766478813}
   - {fileID: 169286330}
+  - {fileID: 1060616790}
   m_Father: {fileID: 956453508}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -975,7 +976,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a739f48b9a30840bb0be4618f4ff44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicatorCore: {fileID: 1049713715}
+  indicator: {fileID: 1019131531}
+--- !u!1 &1060616789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1060616790}
+  - component: {fileID: 1060616791}
+  m_Layer: 0
+  m_Name: SCENE_Initiliazer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1060616790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060616789}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27225136}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1060616791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060616789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831bd4b954a24e86973c8e1316a147d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1140839469
 GameObject:
   m_ObjectHideFlags: 3
@@ -3402,5 +3447,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868cbb38dd484984826563519da31212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicatorCore: {fileID: 1049713715}
+  indicatorCore: {fileID: 1019131531}
   characterMesh: {fileID: 6478453039955310417}
