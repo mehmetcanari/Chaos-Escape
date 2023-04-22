@@ -11,10 +11,10 @@ namespace Chaos.Escape
 
         public HoverboardControlData hoverboardControlData;
         [SerializeField] private Rigidbody hoverboardPhysics;
-        
-        [SerializeField]private float velocityCutDuration;
+
+        [SerializeField] private float velocityCutDuration;
         private Tween _velocityTween;
-        
+
         #endregion
 
         #region UNITY METHODS
@@ -35,7 +35,7 @@ namespace Chaos.Escape
             if (!HasAnyMovementKeyPressed()) return;
             var hoverboardAccelerationValue = hoverboardControlData.hoverboardAccelerationValue;
             _velocityTween?.Kill();
-            
+
             if (IsPressedHold(KeyCode.W))
                 targetPhysics.AddForce(Vector3.forward * (hoverboardAccelerationValue * Time.deltaTime),
                     ForceMode.Acceleration);
@@ -68,13 +68,14 @@ namespace Chaos.Escape
 
         private void CutVelocityWhenStopped()
         {
-            if(hoverboardPhysics.velocity.magnitude < 1) return;
-            if (!IsPressedHold(KeyCode.W) && !IsPressedHold(KeyCode.A) && !IsPressedHold(KeyCode.S) && !IsPressedHold(KeyCode.D))
+            if (hoverboardPhysics.velocity.magnitude < 1) return;
+            if (!IsPressedHold(KeyCode.W) && !IsPressedHold(KeyCode.A) && !IsPressedHold(KeyCode.S) &&
+                !IsPressedHold(KeyCode.D))
             {
                 var targetVelocity = hoverboardPhysics.velocity;
 
                 _velocityTween = DOVirtual.Float(targetVelocity.magnitude, 0f, velocityCutDuration,
-                    value => { hoverboardPhysics.velocity = targetVelocity.normalized * value; });           
+                    value => { hoverboardPhysics.velocity = targetVelocity.normalized * value; });
             }
         }
 

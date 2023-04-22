@@ -11,6 +11,7 @@ namespace Chaos.Escape
         #region INSPECTOR FIELDS
 
         [SerializeField] private Transform indicator;
+        [SerializeField] private Transform aimLaser;
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace Chaos.Escape
         private void Update()
         {
             SetIndicatorPositionToHitPoint(GettedHitFromMousePosition(), 0.5f);
+            ScaleAimLaserByDistanceToHitPoint(GettedHitFromMousePosition());
         }
 
         #endregion
@@ -32,14 +34,21 @@ namespace Chaos.Escape
             Physics.Raycast(ray, out hit);
             return hit;
         }
-        
+
         private void SetIndicatorPositionToHitPoint(RaycastHit hit, float offset)
         {
             indicator.position = new Vector3(hit.point.x, hit.point.y + offset, hit.point.z);
         }
 
+        private void ScaleAimLaserByDistanceToHitPoint(RaycastHit hit)
+        {
+            var distance = Vector3.Distance(transform.position, hit.point);
+            var localScale = aimLaser.transform.localScale;
+            
+            aimLaser.localScale =
+                new Vector3(localScale.x, localScale.y, (distance * 1.25f));
+        }
+
         #endregion
-        
     }
 }
-

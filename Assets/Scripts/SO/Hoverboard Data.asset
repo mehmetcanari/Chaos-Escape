@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Hoverboard Data
   m_EditorClassIdentifier: 
   hoverboardAccelerationValue: 1500
-  hoverboardFinalVelocity: 10
+  hoverboardFinalVelocity: 3
