@@ -11,11 +11,17 @@ namespace Chaos.Escape
         #region INSPECTOR FIELDS
 
         [SerializeField] private Transform indicator;
-        [SerializeField] private Transform aimLaser;
+        [SerializeField] private Transform laserTransform;
+        [SerializeField] private MeshRenderer laserRenderer;
 
         #endregion
 
         #region UNITY METHODS
+
+        private void Awake()
+        {
+            SetLaserVisibility(true);
+        }
 
         private void Update()
         {
@@ -27,6 +33,11 @@ namespace Chaos.Escape
 
         #region PRIVATE METHODS
 
+        private void SetLaserVisibility(bool isVisible)
+        {
+            laserRenderer.gameObject.SetActive(isVisible);
+        }
+        
         private RaycastHit GettedHitFromMousePosition()
         {
             var ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
@@ -43,19 +54,20 @@ namespace Chaos.Escape
         private void ScaleAimLaserByDistanceToHitPoint(RaycastHit hit)
         {
             var distance = Vector3.Distance(transform.position, hit.point);
-            var localScale = aimLaser.transform.localScale;
+            var localScale = laserTransform.transform.localScale;
 
-            aimLaser.localScale =
-                new Vector3(localScale.x, localScale.y, (distance * 1.25f));
+            laserTransform.localScale =
+                new Vector3(localScale.x, localScale.y, distance / 1.4f);
         }
-
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             var position = indicator.position;
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(new Vector3(position.x, position.y + 1.75f, position.z), 0.5f);
+            Gizmos.DrawWireSphere(new Vector3(position.x, position.y + 1.5f, position.z), 0.5f);
         }
+#endif
 
         #endregion
     }
