@@ -44,9 +44,17 @@ namespace Chaos.Escape
         {
             var distance = Vector3.Distance(transform.position, hit.point);
             var localScale = aimLaser.transform.localScale;
-            
+
             aimLaser.localScale =
                 new Vector3(localScale.x, localScale.y, (distance * 1.25f));
+        }
+
+        private void OnDrawGizmos()
+        {
+            var position = indicator.position;
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(new Vector3(position.x, position.y + 1.75f, position.z), 0.5f);
         }
 
         #endregion
