@@ -20,12 +20,12 @@ namespace Chaos.Escape
 
         private void Awake()
         {
-            SetLaserVisibility(true);
+            SetLaserVisibility(false);
         }
 
         private void Update()
         {
-            SetIndicatorPositionToHitPoint(GettedHitFromMousePosition(), 0.5f);
+            SetIndicatorPositionToHitPoint(GettedHitFromMousePosition(), 2);
             ScaleAimLaserByDistanceToHitPoint(GettedHitFromMousePosition());
         }
 
@@ -63,9 +63,9 @@ namespace Chaos.Escape
         private void OnDrawGizmos()
         {
             var position = indicator.position;
-
+        
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(new Vector3(position.x, position.y + 1.5f, position.z), 0.5f);
+            Gizmos.DrawWireSphere(new Vector3(position.x, position.y - 0.5f, position.z), 0.5f);
         }
 #endif
 

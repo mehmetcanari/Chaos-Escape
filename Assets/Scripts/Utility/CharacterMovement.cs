@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace Chaos.Escape
 {
-    public class HoverboardMovement : Input
+    public class CharacterMovement : Input
     {
         #region INSPECTOR FIELDS
 
@@ -15,9 +15,18 @@ namespace Chaos.Escape
         [SerializeField] private float velocityCutDuration;
         private Tween _velocityTween;
 
+        [SerializeField] private Animator animator;
+        private static readonly int Turn = Animator.StringToHash("Turn");
+        private static readonly int Forward = Animator.StringToHash("Forward");
+
         #endregion
 
         #region UNITY METHODS
+
+        private void Start()
+        {
+            SetupAnimator();
+        }
 
         private void FixedUpdate()
         {
@@ -30,26 +39,50 @@ namespace Chaos.Escape
 
         #region PRIVATE METHODS
 
+        private void SetupAnimator()
+        {
+            foreach (var childAnimator in GetComponentsInChildren<Animator>())
+            {
+                if (childAnimator != animator)
+                {
+                    animator.avatar = childAnimator.avatar;
+                    Destroy(childAnimator);
+                    break;
+                }
+            }
+        }
+        
         private void Movement(Rigidbody targetPhysics)
         {
             if (!HasAnyMovementKeyPressed()) return;
             var hoverboardAccelerationValue = hoverboardControlData.hoverboardAccelerationValue;
             _velocityTween?.Kill();
+            
+            float horizontal = UnityEngine.Input.GetAxis("Horizontal");
+            float vertical = UnityEngine.Input.GetAxis("Vertical");
 
-            if (IsPressedHold(KeyCode.W))
-                targetPhysics.AddForce(Vector3.forward * (hoverboardAccelerationValue * Time.deltaTime),
-                    ForceMode.Acceleration);
-            if (IsPressedHold(KeyCode.A))
-                targetPhysics.AddForce(Vector3.left * (hoverboardAccelerationValue * Time.deltaTime),
-                    ForceMode.Acceleration);
-            if (IsPressedHold(KeyCode.S))
-                targetPhysics.AddForce(Vector3.back * (hoverboardAccelerationValue * Time.deltaTime),
-                    ForceMode.Acceleration);
-            if (IsPressedHold(KeyCode.D))
-                targetPhysics.AddForce(Vector3.right * (hoverboardAccelerationValue * Time.deltaTime),
-                    ForceMode.Acceleration);
+            var targetTransform = transform;
+            
+            var targetVelocity = Vector3.forward * (vertical * hoverboardAccelerationValue) +
+                                 Vector3.right * (horizontal * hoverboardAccelerationValue);
+            
+            targetPhysics.AddForce(targetVelocity, ForceMode.Acceleration);
+            
+            MovementAnimation(targetTransform, targetVelocity);
         }
 
+        private void MovementAnimation(Transform targetTransform, Vector3 targetVelocity)
+        {
+            if (Vector3.Angle(targetTransform.forward, targetVelocity) < 90f)
+            {
+                animator.SetFloat(Forward, 1f);
+            }
+            else
+            {
+                animator.SetFloat(Forward, -1f);
+            }
+        }
+        
         private bool HasAnyMovementKeyPressed()
         {
             return IsPressedHold(KeyCode.W) || IsPressedHold(KeyCode.A) || IsPressedHold(KeyCode.S) ||
@@ -73,10 +106,18 @@ namespace Chaos.Escape
                 !IsPressedHold(KeyCode.D))
             {
                 var targetVelocity = hoverboardPhysics.velocity;
-
+                
                 _velocityTween = DOVirtual.Float(targetVelocity.magnitude, 0f, velocityCutDuration,
                     value => { hoverboardPhysics.velocity = targetVelocity.normalized * value; });
+
+                CutAnimationWhenStopped();
             }
+        }
+        
+        private void CutAnimationWhenStopped()
+        {
+            DOVirtual.Float(1f, 0f, velocityCutDuration, value => { animator.SetFloat(Forward, value); });
+            DOVirtual.Float(1f, 0f, velocityCutDuration, value => { animator.SetFloat(Turn, value); });
         }
 
         #endregion
