@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a730088dc2452e98cdf2a685df980e, type: 3}
   m_Name: Hoverboard Data
   m_EditorClassIdentifier: 
-  hoverboardAccelerationValue: 50
+  hoverboardAccelerationValue: 20
   hoverboardFinalVelocity: 3

@@ -73,13 +73,27 @@ namespace Chaos.Escape
 
         private void MovementAnimation(Transform targetTransform, Vector3 targetVelocity)
         {
-            if (Vector3.Angle(targetTransform.forward, targetVelocity) < 90f)
+            float transitionDuration = 0.2f;
+            float angle = Vector3.SignedAngle(targetTransform.forward, targetVelocity, Vector3.up);
+            if (angle > -45f && angle < 45f)
             {
-                animator.SetFloat(Forward, 1f);
+                animator.SetFloat(Forward, 1f, transitionDuration, Time.deltaTime);
+                animator.SetFloat(Turn, 0f , transitionDuration, Time.deltaTime);
+            }
+            else if (angle < -135f || angle > 135f)
+            {
+                animator.SetFloat(Forward, -1f , transitionDuration, Time.deltaTime);
+                animator.SetFloat(Turn, 0f , transitionDuration, Time.deltaTime);
+            }
+            else if (angle > 0f)
+            {
+                animator.SetFloat(Forward, 1f , transitionDuration, Time.deltaTime);
+                animator.SetFloat(Turn, 1f , transitionDuration, Time.deltaTime);
             }
             else
             {
-                animator.SetFloat(Forward, -1f);
+                animator.SetFloat(Forward, 1f , transitionDuration, Time.deltaTime);
+                animator.SetFloat(Turn, -1f , transitionDuration, Time.deltaTime);
             }
         }
         
