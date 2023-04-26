@@ -9,7 +9,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
-        public HoverboardControlData hoverboardControlData;
+        [FormerlySerializedAs("hoverboardControlData")] public CharacterMovementData characterMovementData;
         [SerializeField] private Rigidbody hoverboardPhysics;
 
         [SerializeField] private float velocityCutDuration;
@@ -55,7 +55,7 @@ namespace Chaos.Escape
         private void Movement(Rigidbody targetPhysics)
         {
             if (!HasAnyMovementKeyPressed()) return;
-            var hoverboardAccelerationValue = hoverboardControlData.hoverboardAccelerationValue;
+            var hoverboardAccelerationValue = characterMovementData.characterAccelerationValue;
             _velocityTween?.Kill();
             
             float horizontal = UnityEngine.Input.GetAxis("Horizontal");
@@ -105,7 +105,7 @@ namespace Chaos.Escape
 
         private void FixVelocityStamp(Rigidbody targetPhysic)
         {
-            var velocity = hoverboardControlData.hoverboardFinalVelocity;
+            var velocity = characterMovementData.characterFinalVelocity;
 
             if (targetPhysic.velocity.magnitude >= velocity)
             {
