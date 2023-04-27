@@ -20,7 +20,7 @@ namespace Chaos.Escape
 
         private void Awake()
         {
-            SetLaserVisibility(true);
+            SetLaserVisibility(false);
         }
 
         private void Update()

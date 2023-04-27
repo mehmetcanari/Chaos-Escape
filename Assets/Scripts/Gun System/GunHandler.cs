@@ -13,16 +13,5 @@ namespace Chaos.Escape
         }
 
         #endregion
-
-        #region RIFLE FUNCTIONS
-
-        protected bool IsClickedHold()
-        {
-            if (UnityEngine.Input.GetMouseButton(0)) { return true; }
-            return false;
-        }
-
-        #endregion
-        
     }
 }

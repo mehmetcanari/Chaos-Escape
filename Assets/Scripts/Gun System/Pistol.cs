@@ -10,6 +10,7 @@ namespace Chaos.Escape
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private float bulletForce = 20f;
         [SerializeField] private float fireRate;
+        [SerializeField] private ParticleSystem muzzleFlash;
 
         #endregion
         
@@ -32,6 +33,7 @@ namespace Chaos.Escape
         private void Shoot()
         {
             if (!IsClicked() || !NextFireAllowed()) return;
+            muzzleFlash.Play();
             var bullet = new Bullet(bulletPrefab, muzzle, bulletForce);
             bullet.Initiate();
             _fireInterval = 0f;

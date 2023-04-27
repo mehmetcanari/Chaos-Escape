@@ -9,8 +9,8 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
-        [FormerlySerializedAs("hoverboardControlData")] public CharacterMovementData characterMovementData;
-        [SerializeField] private Rigidbody hoverboardPhysics;
+        public CharacterMovementData characterMovementData;
+        [SerializeField] private Rigidbody characterPhysics;
 
         [SerializeField] private float velocityCutDuration;
         private Tween _velocityTween;
@@ -36,8 +36,8 @@ namespace Chaos.Escape
 
         private void FixedUpdate()
         {
-            FixVelocityStamp(hoverboardPhysics);
-            Movement(hoverboardPhysics);
+            FixVelocityStamp(characterPhysics);
+            Movement(characterPhysics);
             CutVelocityWhenStopped();
         }
 
@@ -124,14 +124,14 @@ namespace Chaos.Escape
 
         private void CutVelocityWhenStopped()
         {
-            if (hoverboardPhysics.velocity.magnitude < 1) return;
+            if (characterPhysics.velocity.magnitude < 1) return;
             if (!IsPressedHold(KeyCode.W) && !IsPressedHold(KeyCode.A) && !IsPressedHold(KeyCode.S) &&
                 !IsPressedHold(KeyCode.D))
             {
-                var targetVelocity = hoverboardPhysics.velocity;
+                var targetVelocity = characterPhysics.velocity;
                 
                 _velocityTween = DOVirtual.Float(targetVelocity.magnitude, 0f, velocityCutDuration,
-                    value => { hoverboardPhysics.velocity = targetVelocity.normalized * value; });
+                    value => { characterPhysics.velocity = targetVelocity.normalized * value; });
 
                 CutAnimationWhenStopped();
                 playerAudioManager.StopStepSound();
