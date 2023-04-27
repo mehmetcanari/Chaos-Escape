@@ -32,7 +32,7 @@ namespace Chaos.Escape
         private void Shoot()
         {
             if (!IsClicked() || !NextFireAllowed()) return;
-            Bullet bullet = new Bullet(bulletPrefab, muzzle, bulletForce);
+            var bullet = new Bullet(bulletPrefab, muzzle, bulletForce);
             bullet.Initiate();
             _fireInterval = 0f;
         }
