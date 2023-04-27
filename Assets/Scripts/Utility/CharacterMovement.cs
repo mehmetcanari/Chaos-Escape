@@ -21,6 +21,12 @@ namespace Chaos.Escape
 
         #endregion
 
+        #region SHARED CLASSES
+
+        [SerializeField] private PlayerAudioManager playerAudioManager;
+ 
+        #endregion
+
         #region UNITY METHODS
 
         private void Start()
@@ -52,6 +58,8 @@ namespace Chaos.Escape
             }
         }
         
+        
+        
         private void Movement(Rigidbody targetPhysics)
         {
             if (!HasAnyMovementKeyPressed()) return;
@@ -69,6 +77,7 @@ namespace Chaos.Escape
             targetPhysics.AddForce(targetVelocity, ForceMode.Acceleration);
             
             MovementAnimation(targetTransform, targetVelocity);
+            playerAudioManager.PlayStepSound();
         }
 
         private void MovementAnimation(Transform targetTransform, Vector3 targetVelocity)
@@ -125,6 +134,7 @@ namespace Chaos.Escape
                     value => { hoverboardPhysics.velocity = targetVelocity.normalized * value; });
 
                 CutAnimationWhenStopped();
+                playerAudioManager.StopStepSound();
             }
         }
         
