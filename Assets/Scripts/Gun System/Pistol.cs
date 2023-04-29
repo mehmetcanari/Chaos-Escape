@@ -11,6 +11,9 @@ namespace Chaos.Escape
         [SerializeField] private float bulletForce = 20f;
         [SerializeField] private float fireRate;
         [SerializeField] private ParticleSystem muzzleFlash;
+        [SerializeField] private AudioClip shotClip;
+        [SerializeField] private AudioSource audioSource;
+        private bool _isPlaying;
 
         #endregion
         
@@ -34,7 +37,8 @@ namespace Chaos.Escape
         {
             if (!IsClicked() || !NextFireAllowed()) return;
             muzzleFlash.Play();
-            var bullet = new Bullet(bulletPrefab, muzzle, bulletForce);
+            PlayAudio();
+            var bullet = new BulletTask(bulletPrefab, muzzle, bulletForce);
             bullet.Initiate();
             _fireInterval = 0f;
         }
@@ -47,17 +51,22 @@ namespace Chaos.Escape
             }
             return false;
         }
+        
+        private void PlayAudio()
+        {
+            audioSource.PlayOneShot(shotClip);
+        }
 
         #endregion
     }
 
-    internal class Bullet
+    public partial class BulletTask
     {
         private readonly GameObject _bulletPrefab;
         private readonly Transform _muzzle;
         private readonly float _bulletForce;
 
-        public Bullet (GameObject bulletPrefab, Transform muzzle, float bulletForce)
+        public BulletTask (GameObject bulletPrefab, Transform muzzle, float bulletForce)
         {
             _bulletPrefab = bulletPrefab;
             _muzzle = muzzle;
