@@ -5,10 +5,17 @@ namespace Chaos.Escape
 {
     public partial class BulletTask : MonoBehaviour
     {
+        #region INSPECTOR FIELDS
+
+        [SerializeField] private ParticleSystem hitParticle;
+
+        #endregion
+        
         #region UNITY METHODS
 
         private void OnCollisionEnter(Collision other)
         {
+            SpawnParticleAtHitPoint(other);
             GiveDamage(other);
             DestroyBullet();
         }
@@ -32,7 +39,8 @@ namespace Chaos.Escape
         
         private void SpawnParticleAtHitPoint(Collision other)
         {
-            //Instantiate(particle, other.GetContact(0).point, Quaternion.identity);
+            var bulletParticle = Instantiate(hitParticle, other.GetContact(0).point, Quaternion.identity);
+            Destroy(bulletParticle, 1f);
         }
 
         #endregion
