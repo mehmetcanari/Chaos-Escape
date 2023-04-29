@@ -9,7 +9,7 @@ namespace Chaos.Escape
         #region INSPECTOR FIELDS
 
         private const int MaxHealth = 100;
-        [SerializeField] private bool isDamageable;
+        public bool isDamageable;
         
         public int currentHealth = MaxHealth;
 
@@ -29,7 +29,6 @@ namespace Chaos.Escape
         private void EntityDestroy()
         {
             if (currentHealth > 0) return;
-            if (!isDamageable) return;
             Destroy(gameObject);
         }
         

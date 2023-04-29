@@ -6,14 +6,20 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
-        [SerializeField] private Transform muzzle;
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private float bulletForce = 20f;
+        [Header("Pistol Settings")]
+        public Transform muzzle;
+        public GameObject bulletPrefab;
+        public float bulletForce = 20f;
         [SerializeField] private float fireRate;
+        
+        [Header("Effects")]
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private AudioClip shotClip;
         [SerializeField] private AudioSource audioSource;
         private bool _isPlaying;
+        
+        [Header("Pooling References")]
+        [SerializeField] private GunItemsPool gunItemsPool;
 
         #endregion
         
@@ -38,7 +44,7 @@ namespace Chaos.Escape
             if (!IsClicked() || !NextFireAllowed()) return;
             muzzleFlash.Play();
             PlayAudio();
-            var bullet = new BulletTask(bulletPrefab, muzzle, bulletForce);
+            var bullet = gunItemsPool.GetBullet();
             bullet.Initiate();
             _fireInterval = 0f;
         }
@@ -59,14 +65,14 @@ namespace Chaos.Escape
 
         #endregion
     }
-
-    public partial class BulletTask
+    
+    public class Bullet
     {
         private readonly GameObject _bulletPrefab;
         private readonly Transform _muzzle;
         private readonly float _bulletForce;
 
-        public BulletTask (GameObject bulletPrefab, Transform muzzle, float bulletForce)
+        public Bullet (GameObject bulletPrefab, Transform muzzle, float bulletForce)
         {
             _bulletPrefab = bulletPrefab;
             _muzzle = muzzle;
@@ -78,8 +84,8 @@ namespace Chaos.Escape
             GameObject bullet = Object.Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(_muzzle.forward * _bulletForce, ForceMode.Impulse);
-
-            DestroyOverTime(1, bullet);
+            
+            DestroyOverTime(1f, bullet);
         }
 
         private void DestroyOverTime(float time, GameObject bulletClone)

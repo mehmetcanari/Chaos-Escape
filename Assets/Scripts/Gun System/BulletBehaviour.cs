@@ -1,9 +1,10 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Chaos.Escape
 {
-    public partial class BulletTask : MonoBehaviour
+    public class BulletBehaviour : MonoBehaviour
     {
         #region INSPECTOR FIELDS
 
@@ -16,8 +17,8 @@ namespace Chaos.Escape
         private void OnCollisionEnter(Collision other)
         {
             SpawnParticleAtHitPoint(other);
+            DestroyBulletWithDelay(0.5f);
             GiveDamage(other);
-            DestroyBullet();
         }
 
         #endregion
@@ -32,15 +33,19 @@ namespace Chaos.Escape
             }
         }
         
-        private void DestroyBullet()
+        private void DestroyBulletWithDelay(float delay)
         {
-            Destroy(gameObject);
+            GameObject o;
+            
+            (o = gameObject).SetActive(false);
+            Destroy(o, delay);
         }
-        
+
         private void SpawnParticleAtHitPoint(Collision other)
         {
-            var bulletParticle = Instantiate(hitParticle, other.GetContact(0).point, Quaternion.identity);
-            Destroy(bulletParticle, 1f);
+            var particle = Instantiate(hitParticle, other.GetContact(0).point, Quaternion.identity);
+            
+            DOVirtual.DelayedCall(0.4f, () => Destroy(particle.gameObject));
         }
 
         #endregion

@@ -11,6 +11,7 @@ namespace Interactions
         
         public void TakeDamage()
         {
+            if (!health.isDamageable) return;
             ReduceHealth(impactDamage);
         }
 
