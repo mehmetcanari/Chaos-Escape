@@ -7,19 +7,10 @@ namespace Chaos.Escape
 {
     public class BulletBehaviour : MonoBehaviour
     {
-        #region INSPECTOR FIELDS
-
-        [FoldoutGroup("Particle Data")]
-        [SerializeField] private ParticleSystem hitParticle;
-
-        #endregion
-        
         #region UNITY METHODS
 
         private void OnCollisionEnter(Collision other)
         {
-            SpawnParticleAtHitPoint(other);
-            DestroyBulletWithDelay(0.5f);
             GiveDamage(other);
         }
 
@@ -33,21 +24,6 @@ namespace Chaos.Escape
             {
                 damageable.TakeDamage();
             }
-        }
-        
-        private void DestroyBulletWithDelay(float delay)
-        {
-            GameObject o;
-            
-            (o = gameObject).SetActive(false);
-            Destroy(o, delay);
-        }
-
-        private void SpawnParticleAtHitPoint(Collision other)
-        {
-            var particle = Instantiate(hitParticle, other.GetContact(0).point, Quaternion.identity);
-            
-            DOVirtual.DelayedCall(0.4f, () => Destroy(particle.gameObject));
         }
 
         #endregion
