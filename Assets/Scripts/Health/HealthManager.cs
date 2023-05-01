@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Health Data")]
         const float MaxHealth = 100f;
         [SerializeField] private float currentHealth = MaxHealth;
         [SerializeField] private Slider healthSlider;

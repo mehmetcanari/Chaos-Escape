@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chaos.Escape
@@ -7,6 +8,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Rotate Settings")]
         [SerializeField] private Transform indicatorCore;
         [SerializeField] private Transform characterMesh;
         

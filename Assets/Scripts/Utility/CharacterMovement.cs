@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 
 namespace Chaos.Escape
@@ -9,12 +10,13 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Character Movement Data")]
         public CharacterMovementData characterMovementData;
         [SerializeField] private Rigidbody characterPhysics;
-
         [SerializeField] private float velocityCutDuration;
         private Tween _velocityTween;
 
+        [FoldoutGroup("Character Animation")]
         [SerializeField] private Animator animator;
         private static readonly int Turn = Animator.StringToHash("Turn");
         private static readonly int Forward = Animator.StringToHash("Forward");

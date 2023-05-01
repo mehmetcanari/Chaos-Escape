@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +9,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Health Data")]
         private const int MaxHealth = 100;
         public bool isDamageable;
         

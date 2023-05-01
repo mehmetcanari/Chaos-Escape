@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Indicator Settings")]
         [SerializeField] private Transform indicator;
         [SerializeField] private Transform laserTransform;
         [SerializeField] private MeshRenderer laserRenderer;

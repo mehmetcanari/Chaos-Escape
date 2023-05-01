@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chaos.Escape
@@ -9,6 +10,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
         
+        [FoldoutGroup("Pool Settings")]
         [SerializeField] private Pistol pistol;
         [SerializeField] private int bulletAmount;
         private Queue<Bullet> _bullets;

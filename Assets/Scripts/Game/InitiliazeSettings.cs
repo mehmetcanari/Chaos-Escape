@@ -9,7 +9,7 @@ namespace Chaos.Escape
 
         private void Awake()
         {
-            //SetFrameRate(120);
+            SetFrameRate(60);
             DisableCursor();
         }
 

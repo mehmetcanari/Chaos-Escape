@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chaos.Escape
@@ -9,6 +10,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("IK Data")]
         [SerializeField] private List<Transform> bones;
         [SerializeField] private Transform target;
         private const float InitiliazeTime = 0.1f;

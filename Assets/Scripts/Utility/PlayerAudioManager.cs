@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Chaos.Escape
 {
@@ -6,6 +7,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Player Audio Manager")]
         [SerializeField] private AudioSource audioSource;
 
         #endregion

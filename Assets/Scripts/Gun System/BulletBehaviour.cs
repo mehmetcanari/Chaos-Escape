@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chaos.Escape
@@ -8,6 +9,7 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
+        [FoldoutGroup("Particle Data")]
         [SerializeField] private ParticleSystem hitParticle;
 
         #endregion

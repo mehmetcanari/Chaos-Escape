@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Chaos.Escape
 {
@@ -6,19 +7,19 @@ namespace Chaos.Escape
     {
         #region INSPECTOR FIELDS
 
-        [Header("Pistol Settings")]
+        [FoldoutGroup("Pistol Settings")]
         public Transform muzzle;
         public GameObject bulletPrefab;
         public float bulletForce = 20f;
         [SerializeField] private float fireRate;
         
-        [Header("Effects")]
+        [FoldoutGroup("Effects")]
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private AudioClip shotClip;
         [SerializeField] private AudioSource audioSource;
         private bool _isPlaying;
         
-        [Header("Pooling References")]
+        [FoldoutGroup("Pooling References")]
         [SerializeField] private GunItemsPool gunItemsPool;
 
         #endregion

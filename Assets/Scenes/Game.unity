@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0014785795, g: 0.0013591028, b: 0.0012890887, a: 1}
+  m_IndirectSpecularColor: {r: 0.0014835797, g: 0.0013570454, b: 0.0012931881, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -699,7 +699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.42261833, y: 0.000000029000576, z: -0.0000000135231915, w: 0.9063078}
-  m_LocalPosition: {x: -0.0000005179098, y: 10.895089, z: -8.092695}
+  m_LocalPosition: {x: -0.00000051790977, y: 10.895089, z: -8.092694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e0497e177a4b2fa5dc347598730187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDamageable: 1
+  isDamageable: 0
   currentHealth: 100
 --- !u!1 &680458939
 GameObject:
@@ -1382,7 +1382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766478812}
   m_LocalRotation: {x: 0.42261833, y: 0.000000029000576, z: -0.0000000135231915, w: 0.9063078}
-  m_LocalPosition: {x: -0.0000005179098, y: 10.895089, z: -8.092695}
+  m_LocalPosition: {x: -0.00000051790977, y: 10.895089, z: -8.092694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3451,7 +3451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e0497e177a4b2fa5dc347598730187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDamageable: 1
+  isDamageable: 0
   currentHealth: 100
 --- !u!54 &2081632469
 Rigidbody:
@@ -5052,7 +5052,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &4314556113850862259
 Transform:
   m_ObjectHideFlags: 0
