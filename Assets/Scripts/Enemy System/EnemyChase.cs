@@ -64,6 +64,7 @@ namespace Chaos.Escape
 
         private void ChaseTarget()
         {
+            if(!gameObject.activeSelf) return;
             agent.isStopped = false;
             agent.SetDestination(target.position);
         }

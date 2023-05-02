@@ -36,10 +36,14 @@ namespace Chaos.Escape
             SetupAnimator();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             FixVelocityStamp(characterPhysics);
             Movement(characterPhysics);
+        }
+
+        private void Update()
+        {
             CutVelocityWhenStopped();
         }
 
@@ -60,12 +64,10 @@ namespace Chaos.Escape
             }
         }
         
-        
-        
         private void Movement(Rigidbody targetPhysics)
         {
             if (!HasAnyMovementKeyPressed()) return;
-            var hoverboardAccelerationValue = characterMovementData.characterAccelerationValue;
+            var characterAccelerationValue = characterMovementData.characterAccelerationValue;
             _velocityTween?.Kill();
             
             float horizontal = UnityEngine.Input.GetAxis("Horizontal");
@@ -73,11 +75,11 @@ namespace Chaos.Escape
 
             var targetTransform = transform;
             
-            var targetVelocity = Vector3.forward * (vertical * hoverboardAccelerationValue) +
-                                 Vector3.right * (horizontal * hoverboardAccelerationValue);
+            var targetVelocity = Vector3.forward * (vertical * characterAccelerationValue) +
+                                 Vector3.right * (horizontal * characterAccelerationValue);
             
             targetPhysics.AddForce(targetVelocity, ForceMode.Acceleration);
-            
+
             MovementAnimation(targetTransform, targetVelocity);
             playerAudioManager.PlayStepSound();
         }

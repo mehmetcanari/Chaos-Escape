@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Character Movement Data
   m_EditorClassIdentifier: 
   characterAccelerationValue: 50
-  characterFinalVelocity: 2
+  characterFinalVelocity: 1

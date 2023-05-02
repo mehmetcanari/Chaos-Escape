@@ -10,7 +10,7 @@ namespace Chaos.Escape
         private void Awake()
         {
             SetFrameRate(120);
-            DisableCursor();
+            EnableCursor(true);
         }
 
         #endregion
@@ -22,9 +22,9 @@ namespace Chaos.Escape
             Application.targetFrameRate = frameRate;
         }
         
-        private void DisableCursor()
+        private void EnableCursor(bool disable)
         {
-            Cursor.visible = false;
+            Cursor.visible = disable;
         }
         
         #endregion
