@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,11 +13,21 @@ namespace Chaos.Escape
         [FoldoutGroup("Health Data")]
         private const int MaxHealth = 100;
         public bool isDamageable;
-        
         public int currentHealth = MaxHealth;
+        private bool _doOnce;
+        
+        [FormerlySerializedAs("_entityRagdollHandler")]
+        [FoldoutGroup("Ragdoll Reference")]
+        [SerializeField] private EntityRagdollHandler entityRagdollHandler;
 
         #endregion
-        
+
+        #region PUBLIC PROPERTIES
+
+        public bool IsDead => currentHealth <= 0;
+
+        #endregion
+
         #region UNITY METHODS
 
         private void Update()
@@ -30,8 +41,13 @@ namespace Chaos.Escape
 
         private void EntityDestroy()
         {
-            if (currentHealth > 0) return;
-            Destroy(gameObject);
+            if (!IsDead) return;
+            if (!_doOnce)
+            {
+                entityRagdollHandler.EnableRagdollComponents();
+                DOVirtual.DelayedCall(5f, () => Destroy(gameObject)).SetLink(gameObject);
+                _doOnce = true;
+            }
         }
         
         #endregion

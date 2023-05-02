@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Chaos.Escape
 {
-    public sealed class GunItemsPool : MonoBehaviour
+    public sealed class BulletPool : MonoBehaviour
     {
         #region INSPECTOR FIELDS
         
@@ -23,7 +24,6 @@ namespace Chaos.Escape
         {
             _bullets = new Queue<Bullet>();
             InitializeBullets();
-            Debug.Log(_bullets.Count);
         }
 
         #endregion
@@ -51,5 +51,32 @@ namespace Chaos.Escape
         }
 
         #endregion
+    }
+    
+    public class Bullet
+    {
+        private readonly GameObject _bulletPrefab;
+        private readonly Transform _muzzle;
+        private readonly float _bulletForce;
+
+        public Bullet (GameObject bulletPrefab, Transform muzzle, float bulletForce)
+        {
+            _bulletPrefab = bulletPrefab;
+            _muzzle = muzzle;
+            _bulletForce = bulletForce;
+        }
+        
+        public void Initiate()
+        {
+            GameObject bullet = Object.Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.AddForce(_muzzle.forward * _bulletForce, ForceMode.Impulse);
+            DestroyOverTime(1f, bullet);
+        }
+
+        private void DestroyOverTime(float time, GameObject bulletClone)
+        {
+            Object.Destroy(bulletClone, time);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Chaos.Escape
 {
@@ -19,8 +20,9 @@ namespace Chaos.Escape
         [SerializeField] private AudioSource audioSource;
         private bool _isPlaying;
         
+        [FormerlySerializedAs("gunItemsPool")]
         [FoldoutGroup("Pooling References")]
-        [SerializeField] private GunItemsPool gunItemsPool;
+        [SerializeField] private BulletPool bulletPool;
 
         #endregion
         
@@ -45,7 +47,7 @@ namespace Chaos.Escape
             if (!IsClicked() || !NextFireAllowed()) return;
             muzzleFlash.Play();
             PlayAudio();
-            var bullet = gunItemsPool.GetBullet();
+            var bullet = bulletPool.GetBullet();
             bullet.Initiate();
             _fireInterval = 0f;
         }
@@ -65,33 +67,5 @@ namespace Chaos.Escape
         }
 
         #endregion
-    }
-    
-    public class Bullet
-    {
-        private readonly GameObject _bulletPrefab;
-        private readonly Transform _muzzle;
-        private readonly float _bulletForce;
-
-        public Bullet (GameObject bulletPrefab, Transform muzzle, float bulletForce)
-        {
-            _bulletPrefab = bulletPrefab;
-            _muzzle = muzzle;
-            _bulletForce = bulletForce;
-        }
-        
-        public void Initiate()
-        {
-            GameObject bullet = Object.Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(_muzzle.forward * _bulletForce, ForceMode.Impulse);
-            
-            DestroyOverTime(1f, bullet);
-        }
-
-        private void DestroyOverTime(float time, GameObject bulletClone)
-        {
-            Object.Destroy(bulletClone, time);
-        }
     }
 }

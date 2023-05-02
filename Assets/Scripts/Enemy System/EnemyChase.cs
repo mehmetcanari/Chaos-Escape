@@ -15,6 +15,7 @@ namespace Chaos.Escape
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform target;
         [SerializeField] private EnemyAnimationController enemyAnimationController;
+        [SerializeField] private EntityHealth entityHealth;
         
         private Action _idleAnimationState;
         private Action _chaseAnimationState;
@@ -40,13 +41,29 @@ namespace Chaos.Escape
             StopCoroutine(ChaseUpdateInterval());
         }
 
+        private void Update()
+        {
+            CheckIfDead();
+        }
+
         private void InitializeTarget()
         {
             target = FindObjectOfType<CharacterRotating>().transform;
         }
         
+        private void CheckIfDead()
+        {
+            if (entityHealth.IsDead)
+            {
+                agent.speed = 0f;
+                agent.SetDestination(agent.transform.position);
+                enabled = false;
+            }
+        }
+        
         private IEnumerator ChaseUpdateInterval()
         {
+            if(!agent.isOnNavMesh) yield break;
             if (CheckIfTargetReached())
             {
                 _idleAnimationState?.Invoke();
@@ -64,7 +81,6 @@ namespace Chaos.Escape
 
         private void ChaseTarget()
         {
-            if(!gameObject.activeSelf) return;
             agent.isStopped = false;
             agent.SetDestination(target.position);
         }
