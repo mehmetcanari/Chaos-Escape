@@ -56,7 +56,10 @@ namespace Interactions
         
         public void SpawnParticleAtHitPoint()
         {
-            var particle = Object.Instantiate(_hitParticle, _other.GetContact(0).point, Quaternion.identity);
+            Quaternion randomRotation = 
+                Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+            
+            var particle = Object.Instantiate(_hitParticle, _other.GetContact(0).point, randomRotation);
          
             DOVirtual.DelayedCall(0.4f, () => Object.Destroy(particle.gameObject));
         }

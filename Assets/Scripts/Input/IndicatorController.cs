@@ -29,6 +29,7 @@ namespace Chaos.Escape
         {
             SetIndicatorPositionToHitPoint(GettedHitFromMousePosition(), 2);
             ScaleAimLaserByDistanceToHitPoint(GettedHitFromMousePosition());
+            ClampAimLaserScale(5);
         }
 
         #endregion
@@ -61,6 +62,14 @@ namespace Chaos.Escape
             laserTransform.localScale =
                 new Vector3(localScale.x, localScale.y, distance / 1.4f);
         }
+        
+        private void ClampAimLaserScale(float maxScale)
+        {
+            var localScale = laserTransform.transform.localScale;
+            var clampedScale = Mathf.Clamp(localScale.z, 0, maxScale);
+            laserTransform.localScale = new Vector3(localScale.x, localScale.y, clampedScale);
+        }
+        
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
